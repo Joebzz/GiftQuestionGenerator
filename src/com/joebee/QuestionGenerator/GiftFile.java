@@ -5,6 +5,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
 /**
  * @author Snooop
  * This program is free software: you can redistribute it and/or modify
@@ -21,16 +25,34 @@ import java.io.IOException;
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class GiftFile {
-	String giftString;
+	
 	File giftFile;
 	public GiftFile (File giftFileMain) {
 		giftFile = giftFileMain;
 	}
 	public void createTrueFalseQuestion (String qTitle, String qText, String qAnswer){
+		String giftString;
 		try {
 			BufferedWriter bufWrite = new BufferedWriter(new FileWriter(giftFile, true));
 			giftString = String.format("::%s:: %s {%s}%n", qTitle, qText, qAnswer);
-			bufWrite.write(giftString);
+			bufWrite.write( giftString + "\n");
+			bufWrite.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void createMultipleChoiceQuestion (String qTitle, String qText, ArrayList<JTextField> jtAnswers, ArrayList<JSpinner> jsAnswers, int numAnswers){
+		try {
+			BufferedWriter bufWrite = new BufferedWriter(new FileWriter(giftFile, true));
+			StringBuilder giftString = new StringBuilder();
+			giftString.append("::"+qTitle+"::"+qText+" {");
+			for(int i = 0; i <= numAnswers; i++){
+				giftString.append("\n~%"+jsAnswers.get(i).getValue().toString()+"%"+jtAnswers.get(i).getText());
+			}
+			giftString.append("\n}");
+			bufWrite.write(giftString.toString()+"\n");
 			bufWrite.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

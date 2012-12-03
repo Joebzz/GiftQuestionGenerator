@@ -1,0 +1,6 @@
+::Title 1 :: Question Text  1 {T}
+
+::Title 2::Question Text 2  {
+~%100%ans 1
+~%0%ans 2
+}
