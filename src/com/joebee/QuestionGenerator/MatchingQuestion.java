@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import net.miginfocom.swing.MigLayout;
@@ -31,11 +30,12 @@ import net.miginfocom.swing.MigLayout;
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class MultipleChoiceQuestion {
+public class MatchingQuestion {
 	protected int qCount = 0;
 	private final JPanel jp;
-	public MultipleChoiceQuestion(final GiftFile giftFile){
-		jp = new JPanel(new MigLayout("", "[align right][][]", ""));
+	//private final int TEXT_FIELD_WIDTH = 5;
+	public MatchingQuestion(final GiftFile giftFile){
+		jp = new JPanel(new MigLayout("", "[right][][]", ""));
 
 		JLabel jlQTitle = new JLabel("Question Title (Optional):");
 		final JTextField jtQuestionTitle = new JTextField("Title", 20);
@@ -47,45 +47,45 @@ public class MultipleChoiceQuestion {
 		jp.add(jlQuestion);
 		jp.add(jtQuestion, "wrap, split 2, span 2");
 
-		JButton jbAddAnswer = new JButton("Add Answer");
-		jp.add(jbAddAnswer);
+		JButton jbAddAnswer = new JButton("Add Pair");
+		jp.add(jbAddAnswer, "grow");
 		
+		final ArrayList<JTextField> jtQuestions = new ArrayList<JTextField>();
 		final ArrayList<JTextField> jtAnswers = new ArrayList<JTextField>();
-		final ArrayList<JSpinner> jsAnswers = new ArrayList<JSpinner>();
+		
+		jtQuestions.add(qCount, new JTextField());
+		jp.add(jtQuestions.get(qCount), "cell 1 "+(2+qCount)+" , grow, split, span");
 		
 		jtAnswers.add(qCount, new JTextField());
-		jp.add(jtAnswers.get(qCount), "grow, split, span");
-		
-		jsAnswers.add(qCount, new JSpinner(new SpinnerNumberModel(-100, -100, 100, 1)));
-		jp.add(jsAnswers.get(qCount), "wrap");
+		jp.add(jtAnswers.get(qCount), "cell 2 " +(2+qCount)+", grow, split, span, wrap");
 		
 		qCount++;
 		
+		jtQuestions.add(qCount, new JTextField());
+		jp.add(jtQuestions.get(qCount), "cell 1 "+(2+qCount)+" , grow, split, span");
+		
 		jtAnswers.add(qCount, new JTextField());
-		jp.add(jtAnswers.get(qCount), "cell 1 3, grow, split, span");
-		
-		jsAnswers.add(qCount, new JSpinner(new SpinnerNumberModel(-100, -100, 100, 1)));
-		jp.add(jsAnswers.get(qCount), "wrap");
-		
+		jp.add(jtAnswers.get(qCount), "cell 2 " +(2+qCount)+", grow, split, span, wrap");
+	
 		jbAddAnswer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				qCount ++;
 				
 				jtAnswers.add(qCount, new JTextField());
-				jp.add(jtAnswers.get(qCount), "cell 1 " + 3 + qCount +" , grow, split, span");
+				jp.add(jtAnswers.get(qCount), "cell 1 " +2+qCount+" , grow, split, span");
 				
-				jsAnswers.add(qCount, new JSpinner(new SpinnerNumberModel(-100, -100, 100, 1)));
-				jp.add(jsAnswers.get(qCount), "wrap");
+				jtQuestions.add(qCount, new JTextField());
+				jp.add(jtQuestions.get(qCount), "cell 2 " +2+qCount+", grow, split, span, wrap");
 				jp.updateUI();
 			}
 		});
 		JButton jbSaveQuestion = new JButton("Save Question");
-		jp.add(jbSaveQuestion,"cell 0 3");
+		jp.add(jbSaveQuestion,"cell 0 3, grow");
 		
 		jbSaveQuestion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				giftFile.createMultipleChoiceQuestion(jtQuestionTitle.getText(), jtQuestion.getText(), jtAnswers, jsAnswers, qCount);
+				giftFile.createMatchingQuestion(jtQuestionTitle.getText(), jtQuestion.getText(), jtQuestions, jtAnswers, qCount);
 			}
 		});
 	}

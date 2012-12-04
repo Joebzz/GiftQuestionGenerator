@@ -44,6 +44,9 @@ public class TabbedPane extends JPanel {
 		JPanel jplInnerMultipleChoicePanel = createMutipleChoicePanel();
 		jtbExample.addTab("Multiple Choice Question", jplInnerMultipleChoicePanel);
 		
+		JPanel jplInnerMatchingPanel = createMatchingPanel();
+		jtbExample.addTab("Matching Question", jplInnerMatchingPanel);
+		
 		// Add the tabbed pane to this panel.
 		setLayout(new GridLayout(1, 1));
 		add(jtbExample);
@@ -58,6 +61,11 @@ public class TabbedPane extends JPanel {
 		MultipleChoiceQuestion mcQuestion = new MultipleChoiceQuestion(giftFile);
 		return mcQuestion.getPanel();
 	}
+	
+	protected JPanel createMatchingPanel() {
+		MatchingQuestion mQuestion = new MatchingQuestion(giftFile);
+		return mQuestion.getPanel();
+	}
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Gift Question Generator");
@@ -68,7 +76,7 @@ public class TabbedPane extends JPanel {
 			}
 		});
 		frame.getContentPane().add(new TabbedPane(), BorderLayout.CENTER);
-		frame.setSize(400, 400);
+		frame.setSize(500, 400);
 		frame.setVisible(true);
 	}
 }

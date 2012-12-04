@@ -25,7 +25,6 @@ import javax.swing.JTextField;
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class GiftFile {
-	
 	File giftFile;
 	public GiftFile (File giftFileMain) {
 		giftFile = giftFileMain;
@@ -34,7 +33,7 @@ public class GiftFile {
 		String giftString;
 		try {
 			BufferedWriter bufWrite = new BufferedWriter(new FileWriter(giftFile, true));
-			giftString = String.format("::%s:: %s {%s}%n", qTitle, qText, qAnswer);
+			giftString = String.format("::%s:: %s {%s}", qTitle, qText, qAnswer);
 			bufWrite.write( giftString + "\n");
 			bufWrite.close();
 		} catch (FileNotFoundException e) {
@@ -59,5 +58,25 @@ public class GiftFile {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	public void createMatchingQuestion(String qTitle, String qText,
+			ArrayList<JTextField> jtQuestions, ArrayList<JTextField> jtAnswers,
+			int qCount) {
+		try {
+			BufferedWriter bufWrite = new BufferedWriter(new FileWriter(giftFile, true));
+			StringBuilder giftString = new StringBuilder();
+			giftString.append("::"+qTitle+"::"+qText+" {");
+			for(int i = 0; i <= qCount; i++){
+				giftString.append("\n="+jtQuestions.get(i).getText()+" -> "+jtAnswers.get(i).getText());
+			}
+			giftString.append("\n}");
+			bufWrite.write(giftString.toString()+"\n");
+			bufWrite.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
