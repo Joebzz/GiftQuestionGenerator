@@ -73,7 +73,7 @@ public class MultipleChoiceQuestion {
 				qCount ++;
 				
 				jtAnswers.add(qCount, new JTextField());
-				jp.add(jtAnswers.get(qCount), "cell 1 " + 3 + qCount +" , grow, split, span");
+				jp.add(jtAnswers.get(qCount), "cell 1 " + (3+qCount) +" , grow, split, span");
 				
 				jsAnswers.add(qCount, new JSpinner(new SpinnerNumberModel(-100, -100, 100, 1)));
 				jp.add(jsAnswers.get(qCount), "wrap");

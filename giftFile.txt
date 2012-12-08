@@ -1,13 +1,3 @@
-::True/False:: 1+2 = 3 {T}
-::MCQ question title::Cities in ireland {
-~%-100%Paris
-~%-100%London
-~%50%Dublin
-~%50%Galway
-}
-::Matching Question::Match the names {
-=Joebee -> Dawson
-=Declan -> Mc
-=Tunkles -> Andrejs
-=Einstein -> Albert
-}
+::1+1::1+1 =  { = 2 = two
+::Title:: Question Text {T}
+::Title:: Question Text {F}

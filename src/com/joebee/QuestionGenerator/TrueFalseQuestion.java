@@ -64,6 +64,7 @@ public class TrueFalseQuestion {
 					qAnswer = "T";
 				else
 					qAnswer = "F";
+				TabbedPane.logger.info("TrueFalse Gift file is : " + giftFile.toString());
 				giftFile.createTrueFalseQuestion(jtQuestionTitle.getText(), jtQuestion.getText(), qAnswer);
 			}
 		});
