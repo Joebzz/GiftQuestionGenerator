@@ -14,34 +14,35 @@ import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 
 /**
- * @author Snooop
- * This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Joebee Dawson - This program is free software: you can redistribute it
+ *         and/or modify it under the terms of the GNU General Public License as
+ *         published by the Free Software Foundation, either version 3 of the
+ *         License, or (at your option) any later version.
+ * 
+ *         This program is distributed in the hope that it will be useful, but
+ *         WITHOUT ANY WARRANTY; without even the implied warranty of
+ *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ *         General Public License for more details.
+ * 
+ *         You should have received a copy of the GNU General Public License
+ *         along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 public class TrueFalseQuestion {
-	
+
 	private JPanel jp;
-	public TrueFalseQuestion(final GiftFile giftFile){
+
+	public TrueFalseQuestion(final GiftFile giftFile) {
 		jp = new JPanel(new MigLayout("", "[align right][]", "[][][][]"));
 
 		JLabel jlQTitle = new JLabel("Question Title (Optional):");
-		final JTextField jtQuestionTitle = new JTextField("Title", 20);
+		final JTextField jtQuestionTitle = new JTextField("Title", 40);
 		jp.add(jlQTitle);
 		jp.add(jtQuestionTitle, "wrap");
 
 		JLabel jlQuestion = new JLabel("Question:");
-		final JTextArea jtQuestion = new JTextArea("Question Text", 5, 20);
+		final JTextArea jtQuestion = new JTextArea("Question Text", 5, 40);
+		jtQuestion.setLineWrap(true);
 		jp.add(jlQuestion);
 		jp.add(jtQuestion, "wrap");
 
@@ -56,20 +57,35 @@ public class TrueFalseQuestion {
 		jp.add(jcFalse, "wrap");
 
 		JButton jbSaveQuestion = new JButton("Save Question");
-		jp.add(jbSaveQuestion);
+		jp.add(jbSaveQuestion, "grow, wrap");
 		jbSaveQuestion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String qAnswer;
-				if(jcTrue.isSelected())
+				if (jcTrue.isSelected())
 					qAnswer = "T";
 				else
 					qAnswer = "F";
-				TabbedPane.logger.info("TrueFalse Gift file is : " + giftFile.toString());
-				giftFile.createTrueFalseQuestion(jtQuestionTitle.getText(), jtQuestion.getText(), qAnswer);
+				TabbedPane.logger.info("TrueFalse Gift file is : "
+						+ giftFile.toString());
+				giftFile.createTrueFalseQuestion(jtQuestionTitle.getText(),
+						jtQuestion.getText(), qAnswer);
 			}
 		});
+
+		JButton jbClear = new JButton("Clear");
+		jbClear.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				jtQuestionTitle.setText("");
+				jtQuestion.setText("");
+				btnGrp.clearSelection();
+			}
+		});
+		jp.add(jbClear, "grow");
 	}
-	public JPanel getPanel(){
+
+	public JPanel getPanel() {
 		return jp;
 	}
 }

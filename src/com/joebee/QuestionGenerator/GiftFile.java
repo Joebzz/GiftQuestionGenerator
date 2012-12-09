@@ -11,9 +11,9 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
 /**
- * @author Snooop This program is free software: you can redistribute it and/or
- *         modify it under the terms of the GNU General Public License as
- *         published by the Free Software Foundation, either version 3 of the
+ * @author Joebee Dawson - This program is free software: you can redistribute
+ *         it and/or modify it under the terms of the GNU General Public License
+ *         as published by the Free Software Foundation, either version 3 of the
  *         License, or (at your option) any later version.
  * 
  *         This program is distributed in the hope that it will be useful, but
@@ -60,13 +60,13 @@ public class GiftFile {
 			StringBuilder giftString = new StringBuilder();
 			giftString.append("::" + qTitle + "::" + qText + " {");
 			for (int i = 0; i <= numAnswers; i++) {
-				giftString.append("~%"
-						+ jsAnswers.get(i).getValue().toString() + "%"
-						+ jtAnswers.get(i).getText());
+				giftString.append("~%" + jsAnswers.get(i).getValue().toString()
+						+ "%" + jtAnswers.get(i).getText());
 			}
 			giftString.append("}");
 			bufWrite.write(giftString.toString());
-			TabbedPane.logger.info("MCQ Gift String : " + giftString.toString());
+			TabbedPane.logger
+					.info("MCQ Gift String : " + giftString.toString());
 			bufWrite.newLine();
 			bufWrite.close();
 		} catch (FileNotFoundException e) {
@@ -90,7 +90,8 @@ public class GiftFile {
 			}
 			giftString.append("}");
 			bufWrite.write(giftString.toString());
-			TabbedPane.logger.info("Matching Gift String : " + giftString.toString());
+			TabbedPane.logger.info("Matching Gift String : "
+					+ giftString.toString());
 			bufWrite.newLine();
 			bufWrite.close();
 		} catch (FileNotFoundException e) {
@@ -109,11 +110,12 @@ public class GiftFile {
 			StringBuilder giftString = new StringBuilder();
 			giftString.append("::" + qTitle + "::" + qText + " {");
 			for (int i = 0; i <= qCount; i++) {
-				giftString.append(" ="
-						+ jtAnswers.get(i).getText());
+				giftString.append(" =" + jtAnswers.get(i).getText());
 			}
+			giftString.append("}");
 			bufWrite.write(giftString.toString());
-			TabbedPane.logger.info("Short Gift String : " + giftString.toString());
+			TabbedPane.logger.info("Short Gift String : "
+					+ giftString.toString());
 			bufWrite.newLine();
 			bufWrite.close();
 		} catch (FileNotFoundException e) {
@@ -121,6 +123,25 @@ public class GiftFile {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
+	}
+
+	public void createEssayQuestion(String qTitle, String qText, int qCount) {
+		try {
+			BufferedWriter bufWrite = new BufferedWriter(new FileWriter(
+					giftFile, true));
+			StringBuilder giftString = new StringBuilder();
+			giftString.append("::" + qTitle + "::" + qText + " {}");
+			bufWrite.write(giftString.toString());
+			TabbedPane.logger.info("Essay Gift String : "
+					+ giftString.toString());
+			bufWrite.newLine();
+			bufWrite.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 }
